@@ -4,7 +4,7 @@ Represents a configuration for automatic deployment.
 
 ## Prerequisites
 
-* [Docker compose](https://docs.docker.com/compose/)
+* [Docker Compose](https://docs.docker.com/compose/)
 
 ## Usage
 
