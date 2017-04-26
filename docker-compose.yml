@@ -1,0 +1,39 @@
+version: '2'
+
+services:
+  dm-backend:
+    image: "devicemanagment/dm-backend"
+    expose:
+      - "5000"
+    restart: "on-failure"
+    links:
+      - mongodb
+      - influxdb
+      - mqtt
+  dm-frontend:
+    image: "devicemanagment/dm-frontend"
+  mqtt:
+    image: "devicemanagment/emqttd"
+    ports: 
+     - "1883:1883"
+    expose:
+      - "1883"
+  influxdb:
+    image: "influxdb:1.2.2"
+    expose:
+      - "8086"
+  mongodb:
+    image: "mongo:3.5.6"
+    expose:
+      - "27017"
+  nginx:
+    build: "nginx/."
+    container_name: "dm-nginx"
+    ports:
+      - "80:80"
+    links:
+      - dm-backend
+    volumes_from:
+      - dm-frontend:ro
+
+  
